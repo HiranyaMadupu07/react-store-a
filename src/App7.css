@@ -1,0 +1,13 @@
+.container{
+    display:flex;
+    justify-content: space-around;
+    padding:20px;
+}
+.left-div, .right-div {
+    width: 50%; /* Adjust as needed */
+    padding: 10px;
+    margin:65px;
+  }
+  .left-div {
+    border-right: 2px solid black; /* Draw a vertical line on the right side of the left div */
+  }
