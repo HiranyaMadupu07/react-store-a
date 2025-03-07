@@ -1,0 +1,22 @@
+.App-Products-Row{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.App-Products-Box{
+    color:rgb(32, 101, 78);
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid rgb(42, 212, 158);
+    border-radius: 10px;
+    width: 300px;
+}
+.App-Products-Box button{
+    background-color: rgb(42, 212, 158);
+    border: none;
+    border-radius: 5px;
+    padding:7px;
+}
+.App-Products-Box button:hover{
+    background-color:rgb(39, 189, 142) ;
+}
