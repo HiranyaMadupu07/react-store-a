@@ -4,10 +4,18 @@ import { Link } from 'react-router-dom'
 import './Register.css';
 export default function Register() {
     const [details, setDetails] = useState([]);
-      const [detail, setDetail] = useState({});
-      const handleSubmit = () => {
-        setDetails([...details, detail]);
+    const [detail, setDetail] = useState({});
+    const handleSubmit = () => {
+    const isExistingUser = details.some((user) => user.email === detail.email);
+    if (isExistingUser) {
+      alert("User with this email already exists.");
+    } else {
+      setDetails([...details, detail]);
+    }
       };
+      const handleDelete=(value)=>{
+        setDetails(details.filter((element,i) => element !=value));
+      }
   return (
     <div className="container">
         <div className="left-div">
@@ -30,6 +38,8 @@ export default function Register() {
                 <td>{value.name}</td>
                 <td>{value.email}</td>
                 <td>{value.password}</td>
+                <button onClick={()=>handleDelete(value)}>Delete</button>
+
               </tr>
             ))}
         </table>
