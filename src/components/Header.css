@@ -5,3 +5,9 @@
     color:rgb(7, 80, 56);
     font-style: italic;
 }
+.App-Header-Link {
+    margin: 5px;
+    font-size: 20px;
+   justify-content: center;
+    color:rgb(7, 80, 56);
+}

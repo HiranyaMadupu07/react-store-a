@@ -1,0 +1,13 @@
+.container{
+    display:flex;
+    justify-content: space-around;
+}
+.right-div table{
+    border:none;
+}
+.right-div table td{
+    border:2px solid grey;
+    background-color:silver;
+    padding:5px;
+    width:50px;
+}
