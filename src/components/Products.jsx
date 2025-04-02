@@ -1,24 +1,25 @@
+import React from "react";
 import "./Products.css"
+import { appContext } from "../App";
+import { useContext } from "react";
 export default function Products() {
-  const products = [
-    { id: 1, name: "Coffee", price: 30 },
-    { id: 2, name: "Pizza", price: 40 },
-    { id: 3, name: "Mocktails", price: 45 },
-    { id: 4, name: "Breads", price: 95 },
-    { id: 5, name: "Pasta", price: 70 },
-    { id: 6, name: "Cheesecakes", price: 25 },
-  ];
+  const { user, products, cart, setCart } = useContext(appContext);
+  const addToCart = (id) => {
+    setCart({...cart, [id]: 1});
+  };
   return (
-    <div>
-      <div className="App-Products-Row">
-        {products.map((value, index) => (
-          <div className="App-Products-Box" key={index}>
-            <h3>{value.name}</h3>
-            <h4>{value.price}</h4>
-            <button>Add to Cart</button>
-            </div>
-        ))}
-      </div>
+    <>
+    <h3>Hello {user.name}</h3>
+    <div className="App-Products-Row">
+      {products.map((value, index) => (
+        <div key={index} className="App-Products-Box">
+          <h3>{value.name}</h3>
+          <h4>{value.price}</h4>
+          <button onClick={()=>addToCart(value.id)}>Add to Cart</button>
+        </div>
+      ))}
     </div>
-  );
+    ;
+  </>
+  )
 }

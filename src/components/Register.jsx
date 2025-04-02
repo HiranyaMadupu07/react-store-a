@@ -1,48 +1,81 @@
-import React from 'react'
-import { useState } from "react";
-import { Link } from 'react-router-dom'
-import './Register.css';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import  { useState } from "react";
+import "./Register.css"
+import { useContext } from "react";
+import { appContext } from "../App";
 export default function Register() {
-    const [details, setDetails] = useState([]);
-    const [detail, setDetail] = useState({});
-    const handleSubmit = () => {
-    const isExistingUser = details.some((user) => user.email === detail.email);
-    if (isExistingUser) {
-      alert("User with this email already exists.");
+  const { user, setUser, users, setUsers } = useContext(appContext);
+  const [msg, setMsg] = useState();
+  const Navigate = useNavigate();
+  const handleSubmit = () => {
+    const found = users.find((value) => value.email === user.email);
+    if (found) {
+      setMsg("User already exists!!");
     } else {
-      setDetails([...details, detail]);
+      setUsers([...users, user]);
+      setMsg();
+      Navigate("/");
     }
-      };
-      const handleDelete=(value)=>{
-        setDetails(details.filter((element,i) => element !=value));
-      }
+  };
+  const handleDelete = (email) => {
+    setUsers(users.filter((value) => value.email !== email));
+  };
   return (
-    <div className="container">
-        <div className="left-div">
-      <h3>Registration Form</h3>
-      <p><input type="text" placeholder='Enter Name'
-      onChange={(e) => setDetail({ ...detail, name: e.target.value })}></input></p>
-      <p><input type="text" placeholder='Email address'
-      onChange={(e) => setDetail({ ...detail, email: e.target.value })}></input></p>
-      <p><input type="password" placeholder='New password'
-      onChange={(e) => setDetail({ ...detail, password: e.target.value })}></input></p>
-      <p><button onClick={handleSubmit}>Submit</button></p>
-      <p><Link to="../login">Already a member? Login here!</Link></p>
-    </div>
-    <div className="right-div">
-        <h4>Details</h4>
-        <table>
-          {details &&
-            details.map((value, index) => (
+    <div className='container'>
+      <div>
+      <h2>Registration Form</h2>
+      <p>{msg}</p>
+      <p><input type="text" 
+      placeholder='Enter name'
+      value={user.name}
+      onChange={(e) => setUser({ ...user, name: e.target.value })}
+      ></input></p>
+      <p><input type="text" 
+      placeholder='Email address'
+      value={user.email}
+      onChange={(e) => setUser({ ...user, email: e.target.value })}
+      ></input></p>
+      <p><input type="password" 
+      placeholder='New password'
+      value={user.password}
+      onChange={(e) => setUser({ ...user, email: e.target.value })}
+      ></input></p>
+      <p>
+        <button onClick={handleSubmit}>Submit</button>
+      </p>
+      <p>
+        <Link to="../login">Already a member? Login here!</Link>
+      </p>
+      </div>
+      <div>
+        <h3>Users Registered</h3>
+        <div>
+          <table>
+            <thead>
               <tr>
-                <td>{value.name}</td>
-                <td>{value.email}</td>
-                <td>{value.password}</td>
-                <button onClick={()=>handleDelete(value)}>Delete</button>
-
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Action</th>
               </tr>
-            ))}
-        </table>
+            </thead>
+            <tbody>
+              {users.map((value, index) => (
+                  <tr key={index}>
+                      <td>{value.name}</td>
+                      <td>{value.email}</td>
+                      <td>{value.password}</td>
+                      <td>
+                        <button onClick={() => handleDelete(value.email)}>
+                        Delete
+                        </button>
+                      </td>
+                  </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )
