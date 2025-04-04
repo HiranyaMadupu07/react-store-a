@@ -10,6 +10,8 @@
     border: 1px solid rgb(42, 212, 158);
     border-radius: 10px;
     width: 300px;
+    align-items: center;
+    justify-content: center;
 }
 .App-Products-Box button{
     background-color: rgb(42, 212, 158);

@@ -1,34 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { appContext } from "../App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 export default function Login() {
-  const {user, setUser, users, setUsers} = useContext(appContext);
   const Navigate = useNavigate();
-  const[msg, setMsg] = useState();
+  const { user, setUser, users,cart } = useContext(appContext);
+  const [msg, setMsg] = useState();
   const handleSubmit = () => {
-    const found = users.find((value) => value.email === user.email && value.password === user.password);
-    if(found){
-      Navigate("/");
+    const found = users.find(
+      (value) => value.email === user.email && value.password === user.password
+    );
+    if (found) {
+      Object.keys(cart).length > 0 ? Navigate("/cart") : Navigate("/");
+    } else {
+      setMsg("Invalid Credentials");
     }
-    else{
-      setMsg("User not found!")
-    }
-  }
+  };
   return (
     <div>
       <h2>Login Form</h2>
-
+      {msg}
       <p>
-        <input type="text" placeholder="Email address"
-        onChange={(e) => setUser({...user, email: e.target.value})}
+        <input
+          type="text"
+          placeholder="Email address"
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
         ></input>
       </p>
       <p>
-        <input type="password" placeholder="Password"
-        onChange={(e) => setUser({...user, password: e.target.value})}
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
         ></input>
       </p>
       <p>
